@@ -9,7 +9,24 @@
 </head>
 <body>
     <h1>json Data</h1>
-    <p>Her skriver vi json data</p>
+    <p>Push new player to grid</p>
+    <form onsubmit="return false">
+        <input type="text" name="input-image" id="input-image" placeholder="Image">
+        <input type="text" name="input-name" id="input-name" placeholder="Name">
+        <input type="text" name="input-age" id="input-age" placeholder="Age">
+        <input type="text" name="input-rating" id="input-rating" placeholder="Rating">
+        <input type="text" name="input-kd" id="input-kd" placeholder="KD">
+        <input type="text" name="input-hs" id="input-hs" placeholder="HS">
+        <input type="text" name="input-adr" id="input-adr" placeholder="adr">
+        <input type="text" name="input-kast" id="input-kast" placeholder="kast">
+        <button onclick="addNewPlayer()">Tilføj</button>
+    </form>
+
+    <div id="player-wrapper">
+        
+    </div>
+
+
     <script src="js/main.js"></script>
 </body>
 </html>
