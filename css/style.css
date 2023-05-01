@@ -9,11 +9,21 @@ input {
 
 #players-wrapper {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 5px;
     margin: 5px;
 }
 
-#player-wrapper img {
-    width: 100%;
+.player-item {
+    text-align: center;
 }
+
+.player-item img {
+    width: 150px;
+}
+
+@media only screen and (max-width: 800px) {
+    #players-wrapper {
+        grid-template-columns: 1fr;
+    }
+  }

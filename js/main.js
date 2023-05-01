@@ -1,3 +1,12 @@
+function loadPage(){
+    console.log('im loading idiot')
+    var currentPlayers = ('; '+document.cookie).split(`; playerData=`).pop().split(';')[0];
+    currentPlayers = JSON.parse(currentPlayers);
+    for (i=0; i<currentPlayers.length; i++){
+        drawHtml(currentPlayers[i])
+    }
+}
+
 function player(image, name, age, rating, kd, hs, adr, kast) {
     this.image = image;
     this.name = name;
@@ -20,13 +29,30 @@ function addNewPlayer() {
     let playerKast = document.getElementById('input-kast').value;
 
     var newPlayer = new player(playerImage, playerName, playerAge, playerRating, playerKd, playerHs, playerAdr, playerKast);
-    document.cookie = "playerData= " + JSON.stringify(newPlayer);
-    var getCookieTest = getCookie('playerData');
-    console.log(getCookieTest);
-    drawHtml(newPlayer);
+    var playersArray = [];
+    if (!document.cookie) {
+        playersArray.push(newPlayer);
+        document.cookie = "playerData= " + JSON.stringify(playersArray);
+        drawHtml(newPlayer);
+    } else {
+        var currentPlayers = ('; '+document.cookie).split(`; playerData=`).pop().split(';')[0];
+        currentPlayers = JSON.parse(currentPlayers);
+        currentPlayers.push(newPlayer);
+        document.cookie = "playerData= " + JSON.stringify(currentPlayers);
+        if (currentPlayers.length > 0) {
+            console.log('this far')
+            for (let i=0; i<currentPlayers.length; i++){
+                console.log(i + ' | ' + currentPlayers.length);
+                if (currentPlayers.length == i + 1) {
+                    console.log('but never this far')
+                    drawHtml(currentPlayers[i])
+                }
+            }
+        }
+    }
 }
-
 function drawHtml(data) {
+    console.log(data)
     let playersWrapper = document.getElementById('players-wrapper');
     let playerWrapper = document.createElement('div');
     playerWrapper.setAttribute('class', 'player-item');
@@ -64,15 +90,4 @@ function drawHtml(data) {
     playerWrapper.appendChild(playerKast);
 
     playersWrapper.appendChild(playerWrapper);
-}
-
-function getCookie(cName) {
-    const name = cName + "=";
-    const cDecoded = decodeURIComponent(document.cookie); //to be careful
-    const cArr = cDecoded.split('; ');
-    let res;
-    cArr.forEach(val => {
-        if (val.indexOf(name) === 0) res = val.substring(name.length);
-    })
-    return res;
 }
